@@ -1,4 +1,7 @@
 import { createTransport } from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const server = process.env.EMAIL_SERVER;
 // const from = process.env.EMAIL_FROM;
