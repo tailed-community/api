@@ -61,6 +61,7 @@ jobs:
 
     - name: Deploy to firebase functions
       run: |
+        gcloud auth activate-service-account --key-file=google-application-credentials.json
         firebase deploy --only functions --non-interactive
 
     - name: Remove credentials file
