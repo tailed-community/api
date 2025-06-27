@@ -12,7 +12,7 @@ env:
   FB_APP_ID: ${{ secrets.FB_APP_ID }}
   EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
   FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
   GOOGLE_APPLICATION_CREDENTIALS_BASE64: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
   TARGET: default
 
@@ -50,7 +50,7 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with: 
-        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}'
         
     - name: Deploy to firebase functions
       run: |
