@@ -47,18 +47,6 @@ jobs:
         echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
         echo "GOOGLE_APPLICATION_CREDENTIALS_BASE64=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" >> .env
 
-    - name: Load environment variables from .env file
-      working-directory: functions
-      run: |
-        if [ -f .env ]; then
-          export $(grep -v '^#' .env | xargs)
-        fi
-
-    - name: Prepare Google Application Credentials
-      run: |
-        touch google-application-credentials.json
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-application-credentials.json
-
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with: 
@@ -67,8 +55,3 @@ jobs:
     - name: Deploy to firebase functions
       run: |
         firebase deploy --only functions --non-interactive
-
-    - name: Remove credentials file
-      if: success() || failure()
-      run: |
-        rm google-application-credentials.json
