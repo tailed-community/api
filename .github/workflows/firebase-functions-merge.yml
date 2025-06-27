@@ -59,10 +59,13 @@ jobs:
         touch google-application-credentials.json
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-application-credentials.json
 
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with: 
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+        
     - name: Deploy to firebase functions
       run: |
-        ls
-        gcloud auth activate-service-account --key-file=google-application-credentials.json
         firebase deploy --only functions --non-interactive
 
     - name: Remove credentials file
