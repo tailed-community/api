@@ -24,13 +24,6 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
 
-    - name: Download deps
-      working-directory: functions
-      run: |
-        npm i
-        npm install -g firebase-tools
-        npm audit fix
-
     - name: Create .env
       working-directory: functions
       run: |
@@ -53,5 +46,9 @@ jobs:
         credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
         
     - name: Deploy to firebase functions
+      working-directory: functions
       run: |
+        npm i
+        npm install -g firebase-tools
+        npm audit fix
         firebase deploy --only functions --non-interactive
